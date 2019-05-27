@@ -28,8 +28,10 @@ func getSqDist(p1, p2 []float64) float64 {
 func getSqSegDist(p, p1, p2 []float64) float64 {
 	x := p1[0]
 	y := p1[1]
+
 	dx := p2[0] - x
 	dy := p2[1] - y
+
 	if dx != 0 || dy != 0 {
 		t := ((p[0]-x)*dx + (p[1]-y)*dy) / (dx*dx + dy*dy)
 		if t > 1 {
@@ -40,6 +42,7 @@ func getSqSegDist(p, p1, p2 []float64) float64 {
 			y += dy * t
 		}
 	}
+
 	dx = p[0] - x
 	dy = p[1] - y
 	return dx*dx + dy*dy
@@ -66,8 +69,10 @@ func simplifyRadialDist(points [][]float64, sqTolerance float64) [][]float64 {
 func simplifyDouglasPeucker(points [][]float64, sqTolerance float64) [][]float64 {
 	var l = len(points)
 	markers := make([]int, l)
+
 	first := 0
 	last := l - 1
+
 	var stack Stack
 	var newPoints [][]float64
 	i, index := 0, 0
@@ -95,7 +100,6 @@ func simplifyDouglasPeucker(points [][]float64, sqTolerance float64) [][]float64
 	for i = 0; i < l; i++ {
 		if checkArrIndex(markers, i) {
 			newPoints = append(newPoints, points[i])
-
 		}
 	}
 	return newPoints
@@ -119,11 +123,13 @@ func Simplify(points [][]float64, tolerance float64, highestQuality bool) [][]fl
 	}
 	sqTolerance := tolerance * tolerance
 	var _points [][]float64
+
 	if highestQuality {
 		_points = points
 	} else {
 		_points = simplifyRadialDist(points, sqTolerance)
 	}
+
 	_points = simplifyDouglasPeucker(_points, sqTolerance)
 	return _points
 }

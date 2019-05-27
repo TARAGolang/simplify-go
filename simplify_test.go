@@ -1,6 +1,7 @@
 package simplifier
 
 import (
+	"log"
 	"testing"
 )
 
@@ -18,4 +19,12 @@ func TestSimplifier(t *testing.T) {
 		t.Fatalf("3 true | Something went wrong")
 	}
 
+}
+
+func TestSimplex(t *testing.T) {
+
+	testData := [][]float64{{1, 2}, {2, 4}, {3, 5}}
+
+	res := Simplify(testData, 3, false)
+	log.Println()
 }
